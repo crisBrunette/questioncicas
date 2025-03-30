@@ -7,7 +7,7 @@ import (
 	"github.com/crisBrunette/questioncicas/internal/database"
 )
 
-var RandomQuestion string = ""
+var RandomQuestion string
 
 func Generator(req *http.Request) string {
 	keys := make([]string, 0, len(database.QuestionAnswer)) // len = 0, cap = 5(database.QuestionAnswer)
