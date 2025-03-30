@@ -8,6 +8,6 @@ import (
 )
 
 func Validator(userAnswer string) bool {
-	correctAnswer, _ := database.QuestionAnswer[question_generator.RamdonQuestion]
+	correctAnswer, _ := database.QuestionAnswer[question_generator.RandomQuestion]
 	return strings.EqualFold(userAnswer, correctAnswer)
 }
