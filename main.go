@@ -12,27 +12,12 @@ func getQuestion(w http.ResponseWriter, req *http.Request) {
 	fmt.Fprintln(w, question_generator.Generator(req))
 }
 
-func validateAnswerA(w http.ResponseWriter, req *http.Request) {
-	if validator.Validator("a") {
+func validateAnswer(w http.ResponseWriter, req *http.Request) {
+	value := req.FormValue("answer")
+	if validator.Validator(value) {
 		fmt.Fprintln(w, "Correct answer!")
 	} else {
-		fmt.Fprintln(w, "Oh! Incorrect answer... :( Try again!")
-	}
-}
-
-func validateAnswerB(w http.ResponseWriter, req *http.Request) {
-	if validator.Validator("b") {
-		fmt.Fprintln(w, "Correct answer!")
-	} else {
-		fmt.Fprintln(w, "Oh! Incorrect answer... :( Try again!")
-	}
-}
-
-func validateAnswerC(w http.ResponseWriter, req *http.Request) {
-	if validator.Validator("c") {
-		fmt.Fprintln(w, "Correct answer!")
-	} else {
-		fmt.Fprintln(w, "Oh! Incorrect answer... :( Try again!")
+		fmt.Fprintf(w, "Ouch! your answer %s is incorrect... :( Try again!\n", value)
 	}
 }
 
@@ -41,9 +26,9 @@ func main() {
 
 	http.HandleFunc("/beAsked", getQuestion)
 
-	http.HandleFunc("/a", validateAnswerA)
-	http.HandleFunc("/b", validateAnswerB)
-	http.HandleFunc("/c", validateAnswerC)
+	http.HandleFunc("/validate", validateAnswer)
 
-	http.ListenAndServe(":8070", nil)
+	http.ListenAndServe(":9010", nil)
 }
+
+// preguntar a oscar si paso un slice en la query. Example localhost:9050/validate?answer=[a,b,c]&test=3?
