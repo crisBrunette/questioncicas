@@ -41,7 +41,7 @@ func main() {
 
 	http.HandleFunc("/beAsked", getQuestion)
 
-	http.HandleFunc("/a", validateAnswerA) // http.HandleFunc("/answer(a)", validateAnswer) // parametros en http getrequest
+	http.HandleFunc("/a", validateAnswerA)
 	http.HandleFunc("/b", validateAnswerB)
 	http.HandleFunc("/c", validateAnswerC)
 
