@@ -28,7 +28,5 @@ func main() {
 
 	http.HandleFunc("/validate", validateAnswer)
 
-	http.ListenAndServe(":9010", nil)
+	http.ListenAndServe(":8070", nil)
 }
-
-// preguntar a oscar si paso un slice en la query. Example localhost:9050/validate?answer=[a,b,c]&test=3?
