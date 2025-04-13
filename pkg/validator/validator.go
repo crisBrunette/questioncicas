@@ -3,11 +3,19 @@ package validator
 import (
 	"strings"
 
-	"github.com/crisBrunette/questioncicas/internal/database"
+	"slices"
+
 	"github.com/crisBrunette/questioncicas/pkg/question_generator"
 )
 
 func Validator(userAnswer string) bool {
-	correctAnswer, _ := database.QuestionAnswer[question_generator.RandomQuestion]
-	return strings.EqualFold(userAnswer, correctAnswer)
+	index := slices.IndexFunc(question_generator.Questions, func(n question_generator.Question) bool {
+		return n.UUID == question_generator.UUIDRandomQuestion
+	})
+
+	if index == -1 {
+		return false
+	}
+
+	return strings.EqualFold(userAnswer, question_generator.Questions[index].Answer)
 }

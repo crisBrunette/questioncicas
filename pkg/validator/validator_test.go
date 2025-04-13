@@ -9,7 +9,14 @@ import (
 
 func TestValidatorCorrectAnswer(t *testing.T) {
 
-	question_generator.RandomQuestion = "¿Como me llamo? a)Cristina, b)Begoña, c)Imposible de distinguir"
+	questionsTest := []question_generator.Question{
+		{UUID: 0, Question: "question1", Answer: "a"},
+		{UUID: 1, Question: "question2", Answer: "a"},
+	}
+
+	question_generator.Questions = questionsTest
+
+	question_generator.UUIDRandomQuestion = questionsTest[0].UUID
 
 	var tests = []struct {
 		userAnswer string
@@ -31,7 +38,7 @@ func TestValidatorCorrectAnswer(t *testing.T) {
 
 func TestValidatorEmptyRandomQuestionAnswer(t *testing.T) {
 
-	question_generator.RandomQuestion = ""
+	question_generator.UUIDRandomQuestion = -1
 
 	var tests = []struct {
 		userAnswer string

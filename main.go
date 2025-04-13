@@ -22,6 +22,8 @@ func validateAnswer(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	question_generator.GenerateQuestions()
+
 	fmt.Println("Questioncicas is ready...")
 
 	http.HandleFunc("/beAsked", getQuestion)
