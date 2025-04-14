@@ -1,8 +1,6 @@
 package question_generator
 
 import (
-	"fmt"
-
 	"github.com/crisBrunette/questioncicas/internal/database"
 )
 
@@ -26,9 +24,5 @@ func GenerateQuestions() {
 		}
 		Questions = append(Questions, q)
 		uuid++
-	}
-
-	for _, q := range Questions {
-		fmt.Printf("UUID: %d, Question: %s, Answer: %s", q.UUID, q.Question, q.Answer) // Cambiado Printfln a Printf
 	}
 }
