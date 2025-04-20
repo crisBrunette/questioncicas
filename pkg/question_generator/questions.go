@@ -10,11 +10,27 @@ type Question struct {
 	Answer   string
 }
 
-var Questions []Question
+type QuestionList struct {
+	QuestionList []Question
+}
 
-func GenerateQuestions() {
-	Questions = make([]Question, 0, len(database.QuestionAnswer))
+func (q Question) GetUUID() int {
+	return q.UUID
+}
+func (q Question) GetQuestion() string {
+	return q.Question
+}
+func (q Question) GetAnswer() string {
+	return q.Answer
+}
 
+func IntiQuestionList() QuestionList {
+	return QuestionList{
+		QuestionList: make([]Question, 0, len(database.QuestionAnswer)),
+	}
+}
+
+func (questionList *QuestionList) PopulateQuestions() {
 	uuid := 0
 	for question, answer := range database.QuestionAnswer {
 		q := Question{
@@ -22,7 +38,7 @@ func GenerateQuestions() {
 			Question: question,
 			Answer:   answer,
 		}
-		Questions = append(Questions, q)
+		questionList.QuestionList = append(questionList.QuestionList, q)
 		uuid++
 	}
 }
