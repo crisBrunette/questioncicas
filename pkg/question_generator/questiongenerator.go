@@ -6,8 +6,8 @@ import (
 )
 
 type QuestionGenerator struct {
-	Questions          QuestionList
-	UUIDRandomQuestion int
+	Questions        QuestionList
+	IDRandomQuestion int
 }
 
 func InitQuestionGenerator(questions *QuestionList) *QuestionGenerator {
@@ -18,6 +18,6 @@ func InitQuestionGenerator(questions *QuestionList) *QuestionGenerator {
 
 func (q *QuestionGenerator) Generator(req *http.Request) string {
 	index := rand.Intn(len(q.Questions.QuestionList))
-	q.UUIDRandomQuestion = q.Questions.QuestionList[index].UUID
+	q.IDRandomQuestion = q.Questions.QuestionList[index].ID
 	return q.Questions.QuestionList[index].Question
 }

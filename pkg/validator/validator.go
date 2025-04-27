@@ -20,7 +20,7 @@ func InitValidator(questionGenerator *question_generator.QuestionGenerator) *Val
 
 func (v Validator) IsValid(userAnswer string) bool {
 	index := slices.IndexFunc(v.QuestionGenerator.Questions.QuestionList, func(n question_generator.Question) bool {
-		return n.UUID == v.QuestionGenerator.UUIDRandomQuestion
+		return n.ID == v.QuestionGenerator.IDRandomQuestion
 	})
 
 	if index == -1 {

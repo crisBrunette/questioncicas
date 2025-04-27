@@ -10,13 +10,13 @@ import (
 func TestValidatorCorrectAnswer(t *testing.T) {
 
 	questionsTest := []question_generator.Question{
-		{UUID: 0, Question: "question1", Answer: "a"},
-		{UUID: 1, Question: "question2", Answer: "a"},
+		{ID: 0, Question: "question1", Answer: "a"},
+		{ID: 1, Question: "question2", Answer: "a"},
 	}
 
 	question_generator.Questions = questionsTest
 
-	question_generator.UUIDRandomQuestion = questionsTest[0].UUID
+	question_generator.IDRandomQuestion = questionsTest[0].ID
 
 	var tests = []struct {
 		userAnswer string
@@ -38,7 +38,7 @@ func TestValidatorCorrectAnswer(t *testing.T) {
 
 func TestValidatorEmptyRandomQuestionAnswer(t *testing.T) {
 
-	question_generator.UUIDRandomQuestion = -1
+	question_generator.IDRandomQuestion = -1
 
 	var tests = []struct {
 		userAnswer string

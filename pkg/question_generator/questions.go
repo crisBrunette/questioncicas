@@ -5,23 +5,13 @@ import (
 )
 
 type Question struct {
-	UUID     int
+	ID       int
 	Question string
 	Answer   string
 }
 
 type QuestionList struct {
 	QuestionList []Question
-}
-
-func (q Question) GetUUID() int {
-	return q.UUID
-}
-func (q Question) GetQuestion() string {
-	return q.Question
-}
-func (q Question) GetAnswer() string {
-	return q.Answer
 }
 
 func IntiQuestionList() QuestionList {
@@ -31,14 +21,14 @@ func IntiQuestionList() QuestionList {
 }
 
 func (questionList *QuestionList) PopulateQuestions() {
-	uuid := 0
+	id := 0
 	for question, answer := range database.QuestionAnswer {
 		q := Question{
-			UUID:     uuid,
+			ID:       id,
 			Question: question,
 			Answer:   answer,
 		}
 		questionList.QuestionList = append(questionList.QuestionList, q)
-		uuid++
+		id++
 	}
 }
