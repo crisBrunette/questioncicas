@@ -3,11 +3,29 @@ package validator
 import (
 	"strings"
 
-	"github.com/crisBrunette/questioncicas/internal/database"
+	"slices"
+
 	"github.com/crisBrunette/questioncicas/pkg/question_generator"
 )
 
-func Validator(userAnswer string) bool {
-	correctAnswer, _ := database.QuestionAnswer[question_generator.RandomQuestion]
-	return strings.EqualFold(userAnswer, correctAnswer)
+type Validator struct {
+	QuestionGenerator question_generator.QuestionGenerator
+}
+
+func InitValidator(questionGenerator *question_generator.QuestionGenerator) *Validator {
+	return &Validator{
+		QuestionGenerator: *questionGenerator,
+	}
+}
+
+func (v Validator) IsValid(userAnswer string) bool {
+	index := slices.IndexFunc(v.QuestionGenerator.Questions.QuestionList, func(n question_generator.Question) bool {
+		return n.ID == v.QuestionGenerator.IDRandomQuestion
+	})
+
+	if index == -1 {
+		return false
+	}
+	println("Correct answer:", v.QuestionGenerator.Questions.QuestionList[index].Answer)
+	return strings.EqualFold(userAnswer, v.QuestionGenerator.Questions.QuestionList[index].Answer)
 }

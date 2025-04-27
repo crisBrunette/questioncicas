@@ -3,17 +3,21 @@ package question_generator
 import (
 	"math/rand"
 	"net/http"
-
-	"github.com/crisBrunette/questioncicas/internal/database"
 )
 
-var RandomQuestion string
+type QuestionGenerator struct {
+	Questions        QuestionList
+	IDRandomQuestion int
+}
 
-func Generator(req *http.Request) string {
-	keys := make([]string, 0, len(database.QuestionAnswer)) // len = 0, cap = 5(database.QuestionAnswer)
-	for k := range database.QuestionAnswer {
-		keys = append(keys, k)
+func InitQuestionGenerator(questions *QuestionList) *QuestionGenerator {
+	return &QuestionGenerator{
+		Questions: *questions,
 	}
-	RandomQuestion = keys[rand.Intn(len(keys))]
-	return RandomQuestion
+}
+
+func (q *QuestionGenerator) Generator(req *http.Request) string {
+	index := rand.Intn(len(q.Questions.QuestionList))
+	q.IDRandomQuestion = q.Questions.QuestionList[index].ID
+	return q.Questions.QuestionList[index].Question
 }
